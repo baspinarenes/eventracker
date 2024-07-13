@@ -1,0 +1,33 @@
+{
+  "name": "eventracker",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc && vite build --watch",
+    "start": "vite --host --open",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  },
+  "description": "Extremely simple and useful event tracker library.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baspinarenes/eventracker.git"
+  },
+  "keywords": [
+    "event"
+  ],
+  "author": "Enes Başpınar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baspinarenes/eventracker/issues"
+  },
+  "homepage": "https://github.com/baspinarenes/eventracker#readme"
+}

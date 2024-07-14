@@ -1,8 +1,8 @@
-import { EventActionDataWithAction } from "../models/type";
+import { ObserveActionData, SubscribeActionData } from "../models/type";
 import { Logger } from "./logger";
 
 export function dispatchCustomEvent(
-  eventData: EventActionDataWithAction,
+  eventData: SubscribeActionData | ObserveActionData,
   dispatchElRef: HTMLElement
 ) {
   Logger.triggered("click", eventData.eventName);

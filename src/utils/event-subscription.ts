@@ -1,5 +1,5 @@
 import { EventAction, NativeEvent } from "../models/enum";
-import { EventActionDataWithAction } from "../models/type";
+import { SubscribeActionData } from "../models/type";
 import { dispatchCustomEvent } from "./custom-event";
 import { Logger } from "./logger";
 
@@ -10,7 +10,7 @@ export class EventSubscription {
   };
 
   private uniqueId: string;
-  private eventDefinations: EventActionDataWithAction[] = [];
+  private eventDefinations: SubscribeActionData[] = [];
   private subscriptions: Record<EventAction, Record<string, any>> = {
     click: {},
     hover: {},
@@ -18,7 +18,7 @@ export class EventSubscription {
 
   constructor(
     uniqueId: string,
-    eventDefinations?: (EventActionDataWithAction | undefined)[]
+    eventDefinations?: (SubscribeActionData | undefined)[]
   ) {
     this.uniqueId = uniqueId;
     this.eventDefinations =
@@ -75,7 +75,7 @@ export class EventSubscription {
     this.eventDefinations.forEach((eventData) => {
       if (eventData) {
         this.subscribe(
-          eventData.action,
+          eventData.action!,
           eventData.eventName,
           eventData.onlyOnce || false,
           () => {

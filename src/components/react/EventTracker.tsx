@@ -21,11 +21,15 @@ import { EventTrackerProps } from "../../models/type";
 import { EventSubscription } from "../../utils/event-subscription";
 import { useEvenTrackerStore } from "../../store";
 import { shakeAnimation } from "../../utils/animation";
+import { useSeenObserver } from "./useSeenObserver";
+import { dispatchCustomEvent } from "../../utils/custom-event";
+import { EventTrackerAction } from "../../models/enum";
 
 export const EventTracker: React.FC<EventTrackerProps> = ({
   children,
   click,
   hover,
+  seen,
   enabled = true,
   ...props
 }) => {
@@ -35,8 +39,8 @@ export const EventTracker: React.FC<EventTrackerProps> = ({
   const eventSubscription = useMemo(
     () =>
       new EventSubscription(uniqueId, [
-        click ? { action: "click", ...click } : undefined,
-        hover ? { action: "hover", ...hover } : undefined,
+        click ? { ...click, action: "click" } : undefined,
+        hover ? { ...hover, action: "hover" } : undefined,
       ]),
     []
   );
@@ -48,6 +52,7 @@ export const EventTracker: React.FC<EventTrackerProps> = ({
       eventTrackerContainerElemenRef.current,
       shakeAnimation
     );
+
     return () => eventSubscription.clearListeners();
   }, []);
 
@@ -56,6 +61,23 @@ export const EventTracker: React.FC<EventTrackerProps> = ({
       eventSubscription.clearListeners();
     }
   }, [enabled]);
+
+  useSeenObserver({
+    ref: eventTrackerContainerElemenRef,
+    enabled: typeof seen !== "undefined",
+    handler: () => {
+      shakeAnimation(eventTrackerContainerElemenRef.current!);
+
+      dispatchCustomEvent(
+        {
+          action: EventTrackerAction.SEEN,
+          eventName: seen!.eventName,
+          onlyOnce: seen!.onlyOnce,
+        },
+        eventTrackerContainerElemenRef.current!
+      );
+    },
+  });
 
   return (
     <div

@@ -1,5 +1,4 @@
 import { EventAction } from "./enum";
-import type { HTMLAttributes } from "react";
 
 declare global {
   var eventracker: {
@@ -11,20 +10,17 @@ declare global {
   };
 }
 
-type AtLeastOne<T, K extends keyof T = keyof T> = K extends keyof T
-  ? Partial<T> & Pick<T, K>
-  : never;
-
-export type EventActionData = Record<string, unknown> & {
+export type ObserveActionData = {
+  action?: "seen";
   eventName: string;
   onlyOnce?: boolean;
-};
+} & Record<string, unknown>;
 
-export type EventActionDataWithAction = Record<string, unknown> & {
-  action: `${EventAction}`;
+export type SubscribeActionData = {
+  action?: "click" | "hover";
   eventName: string;
   onlyOnce?: boolean;
-};
+} & Record<string, unknown>;
 
 export type EventTrackerProps = {
   children: React.ReactNode;
@@ -32,8 +28,11 @@ export type EventTrackerProps = {
   onlyOnce?: boolean;
   enabled?: boolean;
   debug?: boolean;
-} & AtLeastOne<Record<`${EventAction}`, EventActionData>> &
-  HTMLAttributes<HTMLDivElement>;
+  click?: SubscribeActionData;
+  hover?: SubscribeActionData;
+  seen?: ObserveActionData;
+};
+// & HTMLAttributes<HTMLDivElement>;
 
 export type EventListenerClassType = Record<
   EventAction,

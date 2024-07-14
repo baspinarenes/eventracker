@@ -24,12 +24,13 @@ export type EventActionDataWithAction = Record<string, unknown> & {
   onlyOnce?: boolean;
 };
 
-export type FireEventProps = {
+export type EventTrackerProps = {
   children: React.ReactNode;
   name?: string;
   onlyOnce?: boolean;
   enabled?: boolean;
   debug?: boolean;
+  eventTrackerContainerRef?: React.RefObject<HTMLElement>;
 } & AtLeastOne<Record<`${EventAction}`, EventActionData>> &
   HTMLAttributes<HTMLDivElement>;
 

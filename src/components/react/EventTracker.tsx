@@ -11,15 +11,16 @@ if (typeof window !== "undefined" && !globalThis.eventracker) {
 }
 
 import React, { useEffect, useId, useMemo, useRef } from "react";
-import { FireEventProps } from "../../models/type";
+import { EventTrackerProps } from "../../models/type";
 import { EventSubscription } from "../../utils/event-subscription";
 import { useStore } from "../../store";
 
-export const FireEvent: React.FC<FireEventProps> = ({
+export const EventTracker: React.FC<EventTrackerProps> = ({
   children,
   click,
   hover,
   enabled = true,
+  eventTrackerContainerRef,
   ...props
 }) => {
   const containerElRef = useRef<HTMLDivElement>(null);
@@ -36,7 +37,7 @@ export const FireEvent: React.FC<FireEventProps> = ({
 
   useEffect(() => {
     if (!enabled) return;
-    eventSubscription.setupListeners();
+    eventSubscription.setupListeners(eventTrackerContainerRef);
     useStore.subscribe(console.log);
     return () => eventSubscription.clearListeners();
   }, []);

@@ -1,1 +1,2 @@
-export * from "./components/react/FireEvent";
+export * from "./components/react/EventTracker";
+export * from "./components/react/useEventTracker";

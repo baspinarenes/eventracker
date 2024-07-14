@@ -1,7 +1,6 @@
 import { EventAction, NativeEvent } from "../models/enum";
 import { EventActionDataWithAction } from "../models/type";
-import { useStore } from "../store";
-import { CustomEvent } from "./custom-event";
+import { CustomTrackerEvent } from "./custom-event";
 import { Logger } from "./logger";
 
 export class EventSubscription {
@@ -73,14 +72,18 @@ export class EventSubscription {
 
   // }
 
-  setupListeners() {
+  setupListeners(eventTrackerContainerRef?: React.RefObject<HTMLElement>) {
     this.eventDefinations.forEach((eventData) => {
       if (eventData) {
         this.subscribe(
           eventData.action,
           eventData.eventName,
           eventData.onlyOnce || false,
-          () => CustomEvent[eventData.action](eventData.eventName)
+          () =>
+            CustomTrackerEvent[eventData.action](
+              eventData.eventName,
+              eventTrackerContainerRef
+            )
         );
       }
     });
@@ -99,7 +102,6 @@ export class EventSubscription {
 
   static clearAllSubscriptionsForAction(action: EventAction) {
     // TODO: implement
-    console.log("action", action);
   }
 
   hasSubscription(action?: `${EventAction}`, eventName?: string) {

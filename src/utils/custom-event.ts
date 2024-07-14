@@ -5,7 +5,7 @@ export function dispatchCustomEvent(
   eventData: SubscribeActionData | ObserveActionData,
   dispatchElRef: HTMLElement
 ) {
-  Logger.triggered("click", eventData.eventName);
+  Logger.triggered(eventData.action!, eventData.eventName);
   const { action, eventName, onlyOnce, ...payload } = eventData;
 
   const event = new CustomEvent(`eventracker`, {

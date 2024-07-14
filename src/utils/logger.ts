@@ -1,4 +1,4 @@
-import { EventAction } from "../models/enum";
+import { EventAction, EventTrackerAction } from "../models/enum";
 import { useEvenTrackerStore } from "../store";
 
 export class Logger {
@@ -14,7 +14,7 @@ export class Logger {
     });
   }
 
-  static triggered(action: `${EventAction}`, eventName: string) {
+  static triggered(action: `${EventTrackerAction}`, eventName: string) {
     this.debug(`${action}:${eventName} triggered!`, {
       color: "#09a2ec",
     });

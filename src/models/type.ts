@@ -4,8 +4,10 @@ import type { HTMLAttributes } from "react";
 declare global {
   var eventracker: {
     debugMode: boolean;
+    eventTargetShakerMode: boolean;
     summary: () => void;
     toggleDebug: () => void;
+    toggleEventTargetShaker: () => void;
   };
 }
 
@@ -30,7 +32,6 @@ export type EventTrackerProps = {
   onlyOnce?: boolean;
   enabled?: boolean;
   debug?: boolean;
-  eventTrackerContainerRef?: React.RefObject<HTMLElement>;
 } & AtLeastOne<Record<`${EventAction}`, EventActionData>> &
   HTMLAttributes<HTMLDivElement>;
 

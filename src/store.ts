@@ -3,20 +3,26 @@ import { EventAction } from "./models/enum";
 
 type EventKey = `${EventAction}:${string}`;
 
-interface Store {
+interface EvenTrackerStore {
   triggerCount: Record<EventKey, number>;
   debugMode: boolean;
+  eventTargetShakerMode: boolean;
   setDebugMode: (value: boolean) => void;
+  setEventerShaker: (value: boolean) => void;
   clearEventKey: (eventKey: EventKey) => void;
   increaseTriggerCount: (eventKey: EventKey) => void;
 }
 
-export const useStore = create<Store>()((set) => ({
-  debugMode: true,
+export const useEvenTrackerStore = create<EvenTrackerStore>()((set) => ({
+  debugMode: false,
+  eventTargetShakerMode: false,
+  triggerCount: {},
   setDebugMode: (value) => {
     set({ debugMode: value });
   },
-  triggerCount: {},
+  setEventerShaker: (value) => {
+    set({ eventTargetShakerMode: value });
+  },
   clearEventKey: (eventKey) => {
     set((state) => {
       delete state.triggerCount[eventKey];

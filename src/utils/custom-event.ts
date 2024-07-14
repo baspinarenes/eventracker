@@ -1,38 +1,21 @@
+import { EventActionDataWithAction } from "../models/type";
 import { Logger } from "./logger";
 
-export class CustomTrackerEvent {
-  static click(
-    eventName: string,
-    eventTrackerContainerRef?: React.RefObject<HTMLElement>
-  ) {
-    Logger.triggered("click", eventName);
-    const event = new CustomEvent(`eventracker`, {
-      bubbles: true,
-      detail: {
-        action: "click",
-        eventName,
-      },
-    });
-    // TODO: add error handling
-    const element = eventTrackerContainerRef?.current || document;
-    element.dispatchEvent(event);
-  }
+export function dispatchCustomEvent(
+  eventData: EventActionDataWithAction,
+  dispatchElRef: HTMLElement
+) {
+  Logger.triggered("click", eventData.eventName);
+  const { action, eventName, onlyOnce, ...payload } = eventData;
 
-  static hover(
-    eventName: string,
-    eventTrackerContainerRef?: React.RefObject<HTMLElement>
-  ) {
-    Logger.triggered("hover", eventName);
+  const event = new CustomEvent(`eventracker`, {
+    bubbles: true,
+    detail: {
+      action,
+      eventName,
+      payload,
+    },
+  });
 
-    const event = new CustomEvent(`eventracker`, {
-      bubbles: true,
-      detail: {
-        action: "hover",
-        eventName,
-      },
-    });
-
-    const element = eventTrackerContainerRef?.current || document;
-    element.dispatchEvent(event);
-  }
+  dispatchElRef.dispatchEvent(event);
 }

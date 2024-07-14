@@ -1,5 +1,5 @@
 import { EventAction } from "../models/enum";
-import { useStore } from "../store";
+import { useEvenTrackerStore } from "../store";
 
 export class Logger {
   private static messagePrefix = "[eventracker]:";
@@ -28,7 +28,7 @@ export class Logger {
     message: string,
     options: { data?: any; color: string } = { color: "yellow" }
   ) {
-    if (!useStore.getState().debugMode) return;
+    if (!useEvenTrackerStore.getState().debugMode) return;
     this.message(message, options);
   }
 

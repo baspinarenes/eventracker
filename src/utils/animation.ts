@@ -2,7 +2,6 @@ import { useEvenTrackerStore } from "../store";
 
 export function shakeAnimation(element: HTMLElement | null) {
   if (!element || !useEvenTrackerStore.getState().eventTargetShakerMode) return;
-  console.log("asdasdas");
   const keyframes = [
     { transform: "translateX(0)" },
     { transform: "translateX(-20px)" },

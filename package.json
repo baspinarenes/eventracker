@@ -7,11 +7,15 @@
     "start": "vite --host --open",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+  "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1"

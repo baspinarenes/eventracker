@@ -1,7 +1,12 @@
-import { useEvenTrackerStore } from "../store";
+import { isShakeTriggeredComponentMode } from "./common";
 
-export function shakeAnimation(element: HTMLElement | null) {
-  if (!element || !useEvenTrackerStore.getState().eventTargetShakerMode) return;
+/**
+ * Plays a shake animation on the specified container element.
+ *
+ * @param container - The container element to apply the shake animation to.
+ */
+export function playShakeAnimation(container: HTMLElement) {
+  if (!container || !isShakeTriggeredComponentMode()) return;
 
   const keyframes = [
     { transform: "translateX(0)" },
@@ -18,5 +23,5 @@ export function shakeAnimation(element: HTMLElement | null) {
     iterations: 1,
   };
 
-  element.animate(keyframes, options);
+  container.animate(keyframes, options);
 }

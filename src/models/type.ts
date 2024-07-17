@@ -1,43 +1,44 @@
-import { EventAction } from "./enum";
+import { TrackerListenerEvent } from "../core";
+import { TrackerObserverEvent } from "../core/TrackerObserverEvent";
 
 declare global {
   var eventracker: {
-    debugMode: boolean;
-    eventTargetShakerMode: boolean;
-    summary: () => void;
+    debug: boolean;
+    shakeTriggeredComponent: boolean;
     toggleDebug: () => void;
     toggleEventTargetShaker: () => void;
   };
 }
 
-export type ObserveActionData = {
-  action?: "seen";
-  eventName: string;
-  onlyOnce?: boolean;
-} & Record<string, unknown>;
+export type ClassProperties<T> = {
+  [K in keyof T]: T[K] extends Function ? never : K;
+}[keyof T];
 
-export type SubscribeActionData = {
-  action?: "click" | "hover";
-  eventName: string;
-  onlyOnce?: boolean;
-} & Record<string, unknown>;
+export type PropertiesOnly<T> = Pick<T, ClassProperties<T>>;
 
-export type EventTrackerProps = {
-  children: React.ReactNode;
-  name?: string;
-  onlyOnce?: boolean;
-  enabled?: boolean;
-  debug?: boolean;
-  click?: SubscribeActionData;
-  hover?: SubscribeActionData;
-  seen?: ObserveActionData;
+export type EventAction = "click" | "hover" | "seen";
+
+export type EventPayload = Record<string, unknown>;
+export type EventMap = Partial<
+  Record<EventAction, TrackerListenerEvent | TrackerObserverEvent>
+>;
+
+export type CallbackPayload = {
+  action: EventAction;
+  eventName: string;
+  payload: EventPayload;
 };
-// & HTMLAttributes<HTMLDivElement>;
 
-export type EventListenerClassType = Record<
-  EventAction,
-  {
-    subscribe: () => void;
-    unsubscribe: () => void;
-  }
+export type ActionEventMap = Partial<
+  Record<
+    EventAction,
+    Record<
+      string,
+      (
+        payload: Record<string, unknown>,
+        eventName: string,
+        action: EventAction
+      ) => void
+    >
+  >
 >;

@@ -22,8 +22,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "types": [
+      "node",
+    ],
     "typeRoots": [
-      "./src/models"
+      "./src/models",
+      "node_modules/@types"
     ],
   },
   "include": [

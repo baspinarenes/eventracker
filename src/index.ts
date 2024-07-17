@@ -1,16 +1,5 @@
-export function registerEventTracker(
-  eventTrackerRootId: string,
-  callback: (action: string, eventName: string, payload: any) => void
-) {
-  document.addEventListener("DOMContentLoaded", () => {
-    const element = document.querySelector(eventTrackerRootId);
+import { initializeEventTrackerForGlobal } from "./core";
 
-    if (element) {
-      element.addEventListener("eventracker", (e) => {
-        e.stopPropagation();
-        const { action, eventName, payload } = (e as CustomEvent).detail;
-        callback(action, eventName, payload);
-      });
-    }
-  });
-}
+initializeEventTrackerForGlobal();
+
+export * from "./core";

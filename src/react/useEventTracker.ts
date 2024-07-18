@@ -12,7 +12,7 @@ import { isActionEventMap } from "../utils/common";
  */
 export function useEventTracker(
   actionEventMap: ActionEventMap,
-  options: EventTrackerRegisterOptions
+  options?: EventTrackerRegisterOptions
 ): React.MutableRefObject<any>;
 export function useEventTracker(
   selector: string,

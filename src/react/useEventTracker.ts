@@ -17,7 +17,7 @@ export function useEventTracker(
 export function useEventTracker(
   selector: string,
   actionEventMap: ActionEventMap,
-  options: EventTrackerRegisterOptions
+  options?: EventTrackerRegisterOptions
 ): void;
 export function useEventTracker(
   arg1: string | ActionEventMap,

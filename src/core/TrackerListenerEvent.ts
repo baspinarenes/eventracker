@@ -2,76 +2,55 @@ import type { EventAction, EventPayload, PropertiesOnly } from "../models/type";
 import { dispatchCustomEvent } from "../utils/common";
 import { Logger } from "../utils/logger";
 
-/**
- * Represents a tracker listener event.
- */
 export class TrackerListenerEvent {
-  /**
-   * The action associated with the event.
-   */
   public action: Exclude<EventAction, "seen">;
-
-  /**
-   * The name of the event.
-   */
   public eventName: string;
-
-  /**
-   * Indicates whether the event should only be triggered once.
-   */
-  public once?: boolean;
-
-  /**
-   * The payload associated with the event.
-   */
+  public limit?: number;
   public payload: EventPayload;
 
-  /**
-   * Creates a new TrackerListenerEvent instance.
-   * @param params - The parameters for initializing the event.
-   */
+  private eventCallbackMap: Record<Exclude<EventAction, "seen">, Record<string, () => void>> = {
+    click: {},
+    hover: {},
+  };
+
   constructor(params: PropertiesOnly<TrackerListenerEvent>) {
     this.action = params.action;
     this.eventName = params.eventName;
-    this.once = params.once || false;
     this.payload = params.payload;
+    this.limit = params.limit || undefined;
   }
 
-  /**
-   * Subscribes to the event on the specified event tracker container.
-   * @param eventTrackerContainer - The event tracker container to subscribe to.
-   */
   subscribe(eventTrackerContainer: HTMLElement) {
     const nativeEventName = {
       click: "click",
       hover: "mouseover",
     }[this.action];
 
-    eventTrackerContainer.addEventListener(nativeEventName, this.eventCallback(eventTrackerContainer), {
-      once: this.once,
+    this.eventCallbackMap[this.action][this.eventName] = this.fireEvent(eventTrackerContainer);
+    eventTrackerContainer.addEventListener(nativeEventName, this.eventCallbackMap[this.action][this.eventName], {
+      once: this.limit === 1,
     });
 
     Logger.registered(this.action, this.eventName);
   }
 
-  /**
-   * Unsubscribes from the event on the specified event tracker container.
-   * @param eventTrackerContainer - The event tracker container to unsubscribe from.
-   */
   unsubscribe(eventTrackerContainer: HTMLElement) {
-    eventTrackerContainer.removeEventListener("eventracker", this.eventCallback(eventTrackerContainer));
+    const nativeEventName = {
+      click: "click",
+      hover: "mouseover",
+    }[this.action];
+
+    eventTrackerContainer.removeEventListener(nativeEventName, this.eventCallbackMap[this.action]![this.eventName]);
     Logger.unsubscribed(this.action, this.eventName);
   }
 
-  /**
-   * Returns a callback function that dispatches a custom event and unsubscribes the event tracker container.
-   * @param eventTrackerContainer - The HTMLElement representing the event tracker container.
-   * @returns A callback function that dispatches a custom event and unsubscribes the event tracker container.
-   */
-  eventCallback(eventTrackerContainer: HTMLElement) {
-    return () => dispatchCustomEvent(this, eventTrackerContainer, () => this.unsubscribe(eventTrackerContainer));
+  fireEvent(eventTrackerContainer: HTMLElement) {
+    let fireCount = 0;
+
+    return () => {
+      dispatchCustomEvent(this, eventTrackerContainer);
+      fireCount += 1;
+      this.limit && fireCount >= this.limit && this.unsubscribe(eventTrackerContainer);
+    };
   }
 }
-
-// TODO: Eventleri bir yere topla.
-// static variable olarak tutabilirsin

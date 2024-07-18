@@ -21,18 +21,12 @@ export function isActionEventMap(arg: any): arg is ActionEventMap {
   return arg.click || arg.hover || arg.seen;
 }
 
-/**
- * Dispatches a custom event to the specified event tracker container.
- * @param event - The event to dispatch.
- * @param eventTrackerContainer - The container to dispatch the event to.
- */
 export function dispatchCustomEvent(
   event: TrackerListenerEvent | TrackerObserverEvent,
-  eventTrackerContainer: HTMLElement,
-  callback?: () => void
+  eventTrackerContainer: HTMLElement
 ) {
   Logger.triggered(event.action, event.eventName, event.payload);
-  const { action, eventName, once, payload } = event;
+  const { action, eventName, payload } = event;
 
   const eventTrackerEvent = new CustomEvent(`eventracker`, {
     bubbles: true,
@@ -45,20 +39,8 @@ export function dispatchCustomEvent(
 
   eventTrackerContainer.dispatchEvent(eventTrackerEvent);
   playShakeAnimation(eventTrackerContainer);
-
-  if (once) {
-    callback && callback();
-  }
 }
 
-/**
- * Generates TrackerAction object from the given action and event data.
- * @param action - Optional object containing click, hover, and seen event data.
- * @param click - Optional click event data.
- * @param hover - Optional hover event data.
- * @param seen - Optional seen event data.
- * @returns The generated TrackerAction object.
- */
 export function generateActionEventMap(
   action?: {
     click?: PropertiesOnly<Omit<TrackerListenerEvent, "action">>;
@@ -74,6 +56,8 @@ export function generateActionEventMap(
   const givenSeen = action?.seen || seen;
 
   const clickAction = givenClick ? new TrackerListenerEvent({ ...givenClick, action: "click" }) : undefined;
+
+  console.log("clickAction3", clickAction);
 
   const hoverAction = givenHover ? new TrackerListenerEvent({ ...givenHover, action: "hover" }) : undefined;
 

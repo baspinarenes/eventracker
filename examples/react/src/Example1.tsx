@@ -1,6 +1,7 @@
-import { EventTracker, useEventTracker } from "../../../dist/react";
-
 // Basic - Click
+
+import { createPayload } from "../../../dist";
+import { EventTracker, useEventTracker } from "../../../dist/react";
 
 export function Example1() {
   const ref = useEventTracker({
@@ -16,8 +17,13 @@ export function Example1() {
       <EventTracker
         click={{
           eventName: "custom-event-name-1",
-          payload: {},
-          once: true,
+          payload: createPayload(({ cookie, sessionStore, localStore }) => ({
+            key: "value",
+            key2: cookie("token", { json: true, default: {} }),
+            key3: sessionStore("asd", { json: true, default: {} }),
+            key4: localStore("asd"),
+          })),
+          limit: 3,
         }}
       >
         <button>Fire Event</button>

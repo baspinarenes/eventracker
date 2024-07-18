@@ -9,19 +9,7 @@ This is the markdown todo file for project a.
 example, if the user has been on the page for more than 
 10 seconds, fire the seen event.
 - [ ] Add toast messages feature flag for debug mode
-- [ ] Event handler'da cookie okumak için helper sağlanabilir.
-- [ ] X kere çalışması için count tanımla.
 - [ ] Event options'a callback ver ve useEventTracker gerek kalmasin.
-- [ ] Payload oluşturmak için safety sağlayan bir helper olabilir.
-
-```ts
-createPayload(() => {
-  a: danone.a
-}, {
-  a: 5
-})
-```
-
 - [ ] Add config file support.
 
 ```json eventracker.config.json
@@ -47,7 +35,11 @@ createPayload(() => {
 
 # DONE
 
+- [x] Add click event support
+- [x] Add hover event support
+- [x] Add seen event support
 - [x] Add payload modifier method for eventracker registers.
 - [x] Add payload modifier method for global.
 - [x] Propagate if event is not defined in EventActionMap.
-
+- [x] X kere çalışması için count tanımla.
+- [x] Payload oluşturmak için safety sağlayan bir helper olabilir.

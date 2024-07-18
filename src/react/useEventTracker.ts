@@ -4,13 +4,6 @@ import { Logger } from "../utils/logger";
 import { isActionEventMap } from "../utils/common";
 import { subscribeEventTracker } from "../core/subscribeEventTracker";
 
-/**
- * Custom hook for tracking events and executing callbacks based on the events.
- * Use typescript overload to accept two different types of arguments.
- * @param arg1 - Either a selector string or an ActionEventMap object.
- * @param arg2 - Optional ActionEventMap object.
- * @returns - If arg1 is a selector string, returns a ref to the event tracker container element. Otherwise, returns undefined.
- */
 export function useEventTracker(actionEventMap: ActionEventMap, options?: EventTrackerOptions): MutableRefObject<any>;
 export function useEventTracker(selector: string, actionEventMap: ActionEventMap, options?: EventTrackerOptions): void;
 export function useEventTracker(

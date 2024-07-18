@@ -1,10 +1,5 @@
 import { getConfiguration } from "./common";
 
-/**
- * Plays a shake animation on the specified container element.
- *
- * @param container - The container element to apply the shake animation to.
- */
 export function playShakeAnimation(container: HTMLElement) {
   if (!container || !getConfiguration().debugMode.animation) return;
 

@@ -4,11 +4,6 @@ import { TrackerListenerEvent } from "../core";
 import { TrackerObserverEvent } from "../core/TrackerObserverEvent";
 import { PropertiesOnly } from "../models/type";
 
-/**
- * EventTracker component tracks various events such as click, hover, and seen on its child components.
- * It provides the ability to enable/disable event tracking and debug mode.
- */
-
 export const EventTracker: FC<EventTrackerProps> = (props) => {
   const { children, action: actionProp, click, hover, seen, enabled = true } = props;
 

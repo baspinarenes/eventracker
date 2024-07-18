@@ -1,4 +1,4 @@
-import { isShakeTriggeredComponentMode } from "./common";
+import { getConfiguration } from "./common";
 
 /**
  * Plays a shake animation on the specified container element.
@@ -6,7 +6,7 @@ import { isShakeTriggeredComponentMode } from "./common";
  * @param container - The container element to apply the shake animation to.
  */
 export function playShakeAnimation(container: HTMLElement) {
-  if (!container || !isShakeTriggeredComponentMode()) return;
+  if (!container || !getConfiguration().debugMode.animation) return;
 
   const keyframes = [
     { transform: "translateX(0)" },

@@ -19,7 +19,7 @@ export class TrackerListenerEvent {
   /**
    * Indicates whether the event should only be triggered once.
    */
-  public onlyOnce?: boolean;
+  public once?: boolean;
 
   /**
    * The payload associated with the event.
@@ -33,7 +33,7 @@ export class TrackerListenerEvent {
   constructor(params: PropertiesOnly<TrackerListenerEvent>) {
     this.action = params.action;
     this.eventName = params.eventName;
-    this.onlyOnce = params.onlyOnce || false;
+    this.once = params.once || false;
     this.payload = params.payload;
   }
 
@@ -48,9 +48,10 @@ export class TrackerListenerEvent {
     }[this.action];
 
     eventTrackerContainer.addEventListener(nativeEventName, this.eventCallback(eventTrackerContainer), {
-      once: this.onlyOnce,
+      once: this.once,
     });
-    Logger.subscribed(this.action, this.eventName);
+
+    Logger.registered(this.action, this.eventName);
   }
 
   /**
@@ -63,12 +64,12 @@ export class TrackerListenerEvent {
   }
 
   /**
-   * Returns the event callback function.
-   * @param eventTrackerContainer - The event tracker container associated with the event.
-   * @returns The event callback function.
+   * Returns a callback function that dispatches a custom event and unsubscribes the event tracker container.
+   * @param eventTrackerContainer - The HTMLElement representing the event tracker container.
+   * @returns A callback function that dispatches a custom event and unsubscribes the event tracker container.
    */
   eventCallback(eventTrackerContainer: HTMLElement) {
-    return () => dispatchCustomEvent(this, eventTrackerContainer);
+    return () => dispatchCustomEvent(this, eventTrackerContainer, () => this.unsubscribe(eventTrackerContainer));
   }
 }
 

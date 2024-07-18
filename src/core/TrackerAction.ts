@@ -2,7 +2,7 @@ import { PropertiesOnly } from "../models/type";
 import { TrackerListenerEvent } from "./TrackerListenerEvent";
 import { TrackerObserverEvent } from "./TrackerObserverEvent";
 
-export class TrackerActions {
+export class TrackerAction {
   public click?: TrackerListenerEvent;
   public hover?: TrackerListenerEvent;
   public seen?: TrackerObserverEvent;
@@ -14,16 +14,10 @@ export class TrackerActions {
   }: {
     click?: PropertiesOnly<Omit<TrackerListenerEvent, "action">>;
     hover?: PropertiesOnly<Omit<TrackerListenerEvent, "action">>;
-    seen?: PropertiesOnly<Omit<TrackerListenerEvent, "action">>;
+    seen?: PropertiesOnly<Omit<TrackerObserverEvent, "action">>;
   }) {
-    this.click = click
-      ? new TrackerListenerEvent({ ...click, action: "click" })
-      : undefined;
-    this.hover = hover
-      ? new TrackerListenerEvent({ ...hover, action: "hover" })
-      : undefined;
-    this.seen = seen
-      ? new TrackerObserverEvent({ ...seen, action: "seen" })
-      : undefined;
+    this.click = click ? new TrackerListenerEvent({ ...click, action: "click" }) : undefined;
+    this.hover = hover ? new TrackerListenerEvent({ ...hover, action: "hover" }) : undefined;
+    this.seen = seen ? new TrackerObserverEvent({ ...seen, action: "seen" }) : undefined;
   }
 }

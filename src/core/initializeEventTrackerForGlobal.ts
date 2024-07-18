@@ -8,23 +8,24 @@ export function initializeEventTrackerForGlobal() {
   }
 
   globalThis.eventracker = {
-    debug: false,
-    shakeTriggeredComponent: false,
+    debugMode: {
+      enabled: false,
+      output: "console",
+      style: {
+        registered: "yellow",
+        subscribed: "green",
+        unsubscribed: "red",
+        triggered: "orange",
+        modified: "gray",
+      },
+    },
 
     /**
      * Toggles the debug mode of the event tracker.
      * If debug mode is enabled, additional logging and debugging information will be displayed.
      */
     toggleDebug: () => {
-      globalThis.eventracker.debug = !globalThis.eventracker.debug;
-    },
-
-    /**
-     * Toggles the event target shaker of the event tracker.
-     * If the event target shaker is enabled, the component associated with the triggered event will shake.
-     */
-    toggleEventTargetShaker: () => {
-      globalThis.eventracker.shakeTriggeredComponent = !globalThis.eventracker.shakeTriggeredComponent;
+      globalThis.eventracker.debugMode.enabled = !globalThis.eventracker.debugMode.enabled;
     },
   };
 }

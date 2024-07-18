@@ -19,7 +19,7 @@ export class TrackerObserverEvent {
   /**
    * Indicates whether the event should only be triggered once.
    */
-  public onlyOnce?: boolean;
+  public once?: boolean;
 
   /**
    * The payload associated with the event.
@@ -40,7 +40,7 @@ export class TrackerObserverEvent {
   constructor(params: PropertiesOnly<TrackerObserverEvent>) {
     this.action = params.action;
     this.eventName = params.eventName;
-    this.onlyOnce = params.onlyOnce || false;
+    this.once = params.once || false;
     this.payload = params.payload;
     this.observerOptions = params.observerOptions;
   }
@@ -59,7 +59,7 @@ export class TrackerObserverEvent {
 
           dispatchCustomEvent(this, eventTrackerContainer);
 
-          if (this.onlyOnce) {
+          if (this.once) {
             this.unsubscribe(eventTrackerContainer);
           }
         } else {
@@ -69,7 +69,7 @@ export class TrackerObserverEvent {
     }, this.observerOptions);
 
     this._observer.observe(eventTrackerContainer);
-    Logger.subscribed(this.action, this.eventName);
+    Logger.registered(this.action, this.eventName);
   }
 
   /**

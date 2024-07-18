@@ -3,11 +3,8 @@ import { TrackerObserverEvent } from "../core/TrackerObserverEvent";
 
 declare global {
   var eventracker: {
-    debug: boolean;
-    shakeTriggeredComponent: boolean;
     toggleDebug: () => void;
-    toggleEventTargetShaker: () => void;
-  };
+  } & Configuration;
 }
 
 export type ClassProperties<T> = {
@@ -34,6 +31,22 @@ export type ActionEventMap = Partial<
   >
 >;
 
-export type EventTrackerRegisterOptions = {
-  modifier: (payload: EventPayload, eventName: string, action: EventAction) => Record<string, unknown>;
+export type EventTrackerOptions = {
+  payloadModifier?: (payload: EventPayload, eventName: string, action: EventAction) => Record<string, unknown>;
+};
+
+export type Configuration = {
+  debugMode: {
+    enabled: boolean;
+    output: "console";
+    animation?: "shake";
+    style?: {
+      registered: string;
+      subscribed: string;
+      unsubscribed: string;
+      triggered: string;
+      modified: string;
+    };
+  };
+  payloadModifier?: (payload: EventPayload, eventName: string, action: EventAction) => EventPayload;
 };

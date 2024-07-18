@@ -10,21 +10,16 @@ example, if the user has been on the page for more than
 10 seconds, fire the seen event.
 - [ ] Add toast messages feature flag for debug mode
 - [ ] Event handler'da cookie okumak için helper sağlanabilir.
+- [ ] X kere çalışması için count tanımla.
+- [ ] Event options'a callback ver ve useEventTracker gerek kalmasin.
 - [ ] Payload oluşturmak için safety sağlayan bir helper olabilir.
 
 ```ts
-const ref = useEventTracker({ 
-    click: {} 
-  }, {
-    modifier: (payload, eventName, action) => {};
-  }
-);
-```
-
-- [ ] Add filter event feature to eventracker registers.
-
-```ts
-const ref = useEventTracker({ click: {} }, ["custom-click"]);
+createPayload(() => {
+  a: danone.a
+}, {
+  a: 5
+})
 ```
 
 - [ ] Add config file support.
@@ -42,22 +37,17 @@ const ref = useEventTracker({ click: {} }, ["custom-click"]);
 - [ ] Add logging file and method to write summary to console.
 - [ ] Add event based debugger.
 
-## Bug
 
-- 
+## Bug
 
 ## Test
 
 - [ ] Test on SSR project
+- [ ] A tag clicklerde sayfa değiştiğinde event atabilmeli.
 
 # DONE
 
-- [x] Add modifier metod to eventracker registers.
+- [x] Add payload modifier method for eventracker registers.
+- [x] Add payload modifier method for global.
+- [x] Propagate if event is not defined in EventActionMap.
 
-```ts
-const ref = useEventTracker({ 
-    click: {} 
-  }, {
-    modifier: (payload, eventName, action) => {};
-  }
-);

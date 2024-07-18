@@ -1,13 +1,12 @@
-export function configureEventTracker({
-  debug,
-  shakeTriggeredComponent,
-}: {
-  debug: boolean;
-  shakeTriggeredComponent: boolean;
-}) {
+import type { Configuration } from "../models/type";
+
+export function configureEventTracker(configuration: Configuration) {
   globalThis.eventracker = {
     ...globalThis.eventracker,
-    debug,
-    shakeTriggeredComponent,
+    debugMode: {
+      ...globalThis.eventracker.debugMode,
+      ...configuration.debugMode,
+    },
+    payloadModifier: configuration.payloadModifier,
   };
 }

@@ -3,14 +3,11 @@
   "version": "0.6.2",
   "type": "module",
   "scripts": {
-    "dev": "tsc && vite build --watch",
-    "start": "vite --host --open",
-    "preview": "vite preview"
+    "dev": "tsc && vite build --watch"
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "zustand": "^4.5.4"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/node": "^20.14.11",

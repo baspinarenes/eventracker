@@ -19,9 +19,7 @@ export type PropertiesOnly<T> = Pick<T, ClassProperties<T>>;
 export type EventAction = "click" | "hover" | "seen";
 
 export type EventPayload = Record<string, unknown>;
-export type EventMap = Partial<
-  Record<EventAction, TrackerListenerEvent | TrackerObserverEvent>
->;
+export type EventMap = Partial<Record<EventAction, TrackerListenerEvent | TrackerObserverEvent>>;
 
 export type CallbackPayload = {
   action: EventAction;
@@ -32,13 +30,10 @@ export type CallbackPayload = {
 export type ActionEventMap = Partial<
   Record<
     EventAction,
-    Record<
-      string,
-      (
-        payload: Record<string, unknown>,
-        eventName: string,
-        action: EventAction
-      ) => void
-    >
+    Record<string, (payload: Record<string, unknown>, eventName: string, action: EventAction) => void>
   >
 >;
+
+export type EventTrackerRegisterOptions = {
+  modifier: (payload: EventPayload, eventName: string, action: EventAction) => Record<string, unknown>;
+};

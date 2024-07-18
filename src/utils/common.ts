@@ -2,7 +2,7 @@ import { TrackerActions, TrackerListenerEvent } from "../core";
 import { Logger } from "./logger";
 import { playShakeAnimation } from "./animation";
 import { TrackerObserverEvent } from "../core/TrackerObserverEvent";
-import { PropertiesOnly } from "../models/type";
+import { ActionEventMap, PropertiesOnly } from "../models/type";
 
 export function getSafeValue(initializer: () => any, defaultValue: any) {
   try {
@@ -19,6 +19,10 @@ export function isDebugMode() {
 
 export function isShakeTriggeredComponentMode() {
   return globalThis.eventracker.shakeTriggeredComponent;
+}
+
+export function isActionEventMap(arg: any): arg is ActionEventMap {
+  return arg.click || arg.hover || arg.seen;
 }
 
 /**

@@ -9,12 +9,16 @@ This is the markdown todo file for project a.
 example, if the user has been on the page for more than 
 10 seconds, fire the seen event.
 - [ ] Add toast messages feature flag for debug mode
-- [ ] Add modifier metod to eventracker registers.
+- [ ] Event handler'da cookie okumak için helper sağlanabilir.
+- [ ] Payload oluşturmak için safety sağlayan bir helper olabilir.
 
 ```ts
-const ref = useEventTracker({ click: {} }, {
-  modifier: (payload, eventName, action) => {};
-});
+const ref = useEventTracker({ 
+    click: {} 
+  }, {
+    modifier: (payload, eventName, action) => {};
+  }
+);
 ```
 
 - [ ] Add filter event feature to eventracker registers.
@@ -48,4 +52,12 @@ const ref = useEventTracker({ click: {} }, ["custom-click"]);
 
 # DONE
 
-- 
+- [x] Add modifier metod to eventracker registers.
+
+```ts
+const ref = useEventTracker({ 
+    click: {} 
+  }, {
+    modifier: (payload, eventName, action) => {};
+  }
+);

@@ -1,4 +1,4 @@
-import { ActionEventMap, CallbackPayload } from "../models/type";
+import { ActionEventMap, CallbackPayload, EventTrackerRegisterOptions } from "../models/type";
 import { Logger } from "../utils/logger";
 
 /**
@@ -6,7 +6,11 @@ import { Logger } from "../utils/logger";
  * @param eventTrackerRootId - The ID of the root element to attach the event tracker to.
  * @param actionEventMap - A mapping of actions to event callbacks.
  */
-export function registerEventTracker(eventTrackerRootId: string, actionEventMap: ActionEventMap) {
+export function registerEventTracker(
+  eventTrackerRootId: string,
+  actionEventMap: ActionEventMap,
+  options?: EventTrackerRegisterOptions
+) {
   document.addEventListener("DOMContentLoaded", () => {
     const element = document.querySelector(eventTrackerRootId);
 
@@ -31,7 +35,11 @@ export function registerEventTracker(eventTrackerRootId: string, actionEventMap:
           return;
         }
 
-        eventCallback(customEventPayload.payload, customEventPayload.eventName, customEventPayload.action);
+        const payload =
+          options?.modifier(customEventPayload.payload, customEventPayload.eventName, customEventPayload.action) ||
+          customEventPayload.payload;
+
+        eventCallback(payload, customEventPayload.eventName, customEventPayload.action);
       });
     } else {
       Logger.error("Global event tracker root element not found.");

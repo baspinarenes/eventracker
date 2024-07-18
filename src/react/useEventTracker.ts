@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
-import { ActionEventMap, CallbackPayload } from "../models/type";
+import { ActionEventMap, CallbackPayload, EventTrackerRegisterOptions } from "../models/type";
 import { Logger } from "../utils/logger";
+import { isActionEventMap } from "../utils/common";
 
 /**
  * Custom hook for tracking events and executing callbacks based on the events.
@@ -9,14 +10,26 @@ import { Logger } from "../utils/logger";
  * @param arg2 - Optional ActionEventMap object.
  * @returns - If arg1 is a selector string, returns a ref to the event tracker container element. Otherwise, returns undefined.
  */
-export function useEventTracker(actionEventMap: ActionEventMap): React.MutableRefObject<any>;
-export function useEventTracker(selector: string, actionEventMap: ActionEventMap): void;
-export function useEventTracker(arg1: string | ActionEventMap, arg2?: ActionEventMap) {
+export function useEventTracker(
+  actionEventMap: ActionEventMap,
+  options: EventTrackerRegisterOptions
+): React.MutableRefObject<any>;
+export function useEventTracker(
+  selector: string,
+  actionEventMap: ActionEventMap,
+  options: EventTrackerRegisterOptions
+): void;
+export function useEventTracker(
+  arg1: string | ActionEventMap,
+  arg2?: ActionEventMap | EventTrackerRegisterOptions,
+  arg3?: EventTrackerRegisterOptions
+) {
   const eventTrackerContainerRef = useRef<any>(null);
   let element: Element;
   let actionEventMap: ActionEventMap;
+  let options = arg3;
 
-  if (typeof arg1 === "string") {
+  if (typeof arg1 === "string" && isActionEventMap(arg2)) {
     const selectedElement = document.querySelector(arg1);
     if (selectedElement) {
       element = selectedElement;
@@ -24,7 +37,7 @@ export function useEventTracker(arg1: string | ActionEventMap, arg2?: ActionEven
       Logger.error(`Element not found for selector: ${arg1}`);
     }
     actionEventMap = arg2!;
-  } else {
+  } else if (isActionEventMap(arg1) && arg2) {
     element = eventTrackerContainerRef.current || document;
     actionEventMap = arg1;
   }
@@ -51,7 +64,11 @@ export function useEventTracker(arg1: string | ActionEventMap, arg2?: ActionEven
         return;
       }
 
-      eventCallback(customEventPayload.payload, customEventPayload.eventName, customEventPayload.action);
+      const payload =
+        options?.modifier(customEventPayload.payload, customEventPayload.eventName, customEventPayload.action) ||
+        customEventPayload.payload;
+
+      eventCallback(payload, customEventPayload.eventName, customEventPayload.action);
     };
 
     element.addEventListener("eventracker", listener);

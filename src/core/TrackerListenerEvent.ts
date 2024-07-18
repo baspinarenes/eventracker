@@ -8,11 +8,6 @@ export class TrackerListenerEvent {
   public limit?: number;
   public payload: EventPayload;
 
-  private eventCallbackMap: Record<Exclude<EventAction, "seen">, Record<string, () => void>> = {
-    click: {},
-    hover: {},
-  };
-
   constructor(params: PropertiesOnly<TrackerListenerEvent>) {
     this.action = params.action;
     this.eventName = params.eventName;
@@ -26,11 +21,12 @@ export class TrackerListenerEvent {
       hover: "mouseover",
     }[this.action];
 
-    this.eventCallbackMap[this.action][this.eventName] = this.fireEvent(eventTrackerContainer);
-    eventTrackerContainer.addEventListener(nativeEventName, this.eventCallbackMap[this.action][this.eventName], {
+    const callback = this.fireEvent(eventTrackerContainer);
+    eventTrackerContainer.addEventListener(nativeEventName, callback, {
       once: this.limit === 1,
     });
-
+    console.log("asdasdsad");
+    globalThis.eventracker.saveEventToSummary(this.action, this.eventName, callback);
     Logger.registered(this.action, this.eventName);
   }
 
@@ -40,7 +36,11 @@ export class TrackerListenerEvent {
       hover: "mouseover",
     }[this.action];
 
-    eventTrackerContainer.removeEventListener(nativeEventName, this.eventCallbackMap[this.action]![this.eventName]);
+    eventTrackerContainer.removeEventListener(
+      nativeEventName,
+      globalThis.eventracker.summary[this.action]![this.eventName].callback!
+    );
+    globalThis.eventracker.removeEventFromSummary(this.action, this.eventName);
     Logger.unsubscribed(this.action, this.eventName);
   }
 

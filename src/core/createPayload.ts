@@ -36,11 +36,7 @@ export function createPayload(callback: CreatePayloadCallback): Record<string, a
 
       console.log("value", value, options);
 
-      if (options?.json) {
-        console.log("asdasdasdasdas");
-        console.log("asdasdasdasdas", JSON.parse(value));
-        return JSON.parse(value);
-      }
+      if (options?.json) return JSON.parse(value);
 
       return value;
     } catch (error) {

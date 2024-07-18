@@ -25,7 +25,6 @@ export function dispatchCustomEvent(
   event: TrackerListenerEvent | TrackerObserverEvent,
   eventTrackerContainer: HTMLElement
 ) {
-  Logger.triggered(event.action, event.eventName, event.payload);
   const { action, eventName, payload } = event;
 
   const eventTrackerEvent = new CustomEvent(`eventracker`, {
@@ -39,6 +38,8 @@ export function dispatchCustomEvent(
 
   eventTrackerContainer.dispatchEvent(eventTrackerEvent);
   playShakeAnimation(eventTrackerContainer);
+  Logger.triggered(event.action, event.eventName, event.payload);
+  globalThis.eventracker.increaseFireCountOnSummary(event.action, event.eventName);
 }
 
 export function generateActionEventMap(

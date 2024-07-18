@@ -3,7 +3,12 @@ import { TrackerObserverEvent } from "../core/TrackerObserverEvent";
 
 declare global {
   var eventracker: {
+    summary: Record<EventAction, Record<string, { triggered: number; callback?: () => void }>>;
     toggleDebug: () => void;
+    summarize: () => void;
+    saveEventToSummary: (action: EventAction, eventName: string, callback: () => void) => void;
+    removeEventFromSummary: (action: EventAction, eventName: string) => void;
+    increaseFireCountOnSummary: (action: EventAction, eventName: string) => void;
   } & Configuration;
 }
 

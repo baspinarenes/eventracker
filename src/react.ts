@@ -1,4 +1,4 @@
-import { initializeEventTrackerForGlobal } from "./core";
+import { initializeEventTrackerForGlobal } from "./core/initializeEventTrackerForGlobal";
 
 initializeEventTrackerForGlobal();
 

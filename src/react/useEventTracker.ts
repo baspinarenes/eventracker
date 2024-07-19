@@ -1,8 +1,9 @@
-import { useEffect, useRef, MutableRefObject, useLayoutEffect } from "react";
+import { useEffect, useRef, MutableRefObject } from "react";
 import { ActionEventMap, EventTrackerOptions } from "../models/type";
 import { Logger } from "../utils/logger";
 import { isActionEventMap } from "../utils/common";
 import { subscribeEventTracker } from "../core/subscribeEventTracker";
+import useIsomorphicLayoutEffect from "./useIsomorphicLayoutEffect";
 
 export function useEventTracker(actionEventMap: ActionEventMap, options?: EventTrackerOptions): MutableRefObject<any>;
 export function useEventTracker(selector: string, actionEventMap: ActionEventMap, options?: EventTrackerOptions): void;
@@ -36,7 +37,7 @@ export function useEventTracker(
       );
   }, [eventTrackerContainerRef]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!eventTrackerContainerRef.current && typeof arg1 === "string") {
       const element = document.querySelector(arg1);
 

@@ -21,19 +21,20 @@
   "description": "Extremely simple and useful event tracker library.",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./react": {
+      "types": "./dist/react.d.ts",
       "import": "./dist/react.js",
-      "require": "./dist/react.cjs",
-      "types": "./dist/react.d.ts"
+      "require": "./dist/react.cjs"
     }
   },
   "repository": {

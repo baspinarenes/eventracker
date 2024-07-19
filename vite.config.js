@@ -2,13 +2,13 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import react from "@vitejs/plugin-react";
-import resolve from "@rollup/plugin-node-resolve";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 import terser from "@rollup/plugin-terser";
 
 export default defineConfig({
   base: "./",
-  plugins: [react(), external(), dts({ rollupTypes: true }), terser()],
+  plugins: [nodeResolve(), react(), external(), dts({ rollupTypes: true }), terser()],
   esbuild: {
     drop: ["console", "debugger"],
   },

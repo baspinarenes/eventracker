@@ -14,6 +14,9 @@ importers:
       react-dom:
         specifier: ^16
         version: 16.14.0(react@16.14.0)
+      toastify-js:
+        specifier: ^1.12.0
+        version: 1.12.0
     devDependencies:
       '@rollup/plugin-node-resolve':
         specifier: ^15.2.3
@@ -30,6 +33,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      '@types/toastify-js':
+        specifier: ^1.12.3
+        version: 1.12.3
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.3.4(@types/node@20.14.11)(terser@5.31.3))
@@ -489,6 +495,9 @@ packages:
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
 
+  '@types/toastify-js@1.12.3':
+    resolution: {integrity: sha512-9RjLlbAHMSaae/KZNHGv19VG4gcLIm3YjvacCXBtfMfYn26h76YP5oxXI8k26q4iKXCB9LNfv18lsoS0JnFPTg==}
+
   '@vitejs/plugin-react@4.3.1':
     resolution: {integrity: sha512-m/V2syj5CuVnaxcUJOQRel/Wr31FFXRFlnOoq1TVtkCxsY5veGMTEmpWHndrhB2U8ScHtCQB1e+4hWYExQc6Lg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -889,6 +898,9 @@ packages:
   to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
+
+  toastify-js@1.12.0:
+    resolution: {integrity: sha512-HeMHCO9yLPvP9k0apGSdPUWrUbLnxUKNFzgUoZp1PHCLploIX/4DSQ7V8H25ef+h4iO9n0he7ImfcndnN6nDrQ==}
 
   typescript@5.4.2:
     resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
@@ -1405,6 +1417,8 @@ snapshots:
 
   '@types/resolve@1.20.2': {}
 
+  '@types/toastify-js@1.12.3': {}
+
   '@vitejs/plugin-react@4.3.1(vite@5.3.4(@types/node@20.14.11)(terser@5.31.3))':
     dependencies:
       '@babel/core': 7.24.9
@@ -1802,6 +1816,8 @@ snapshots:
       source-map-support: 0.5.21
 
   to-fast-properties@2.0.0: {}
+
+  toastify-js@1.12.0: {}
 
   typescript@5.4.2: {}
 

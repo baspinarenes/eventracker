@@ -43,7 +43,7 @@ export type EventTrackerOptions = {
 export type Configuration = {
   debugMode: {
     enabled: boolean;
-    output: "console";
+    output: ("console" | "toast")[];
     animation?: "shake";
     style?: {
       registered: string;

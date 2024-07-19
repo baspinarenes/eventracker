@@ -8,7 +8,7 @@ export function initializeEventTrackerForGlobal() {
   globalThis.eventracker = {
     debugMode: {
       enabled: false,
-      output: "console",
+      output: ["console"],
       style: {
         registered: "yellow",
         subscribed: "green",

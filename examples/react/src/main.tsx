@@ -5,7 +5,7 @@ import { configureEventTracker } from "../../../dist/index";
 configureEventTracker({
   debugMode: {
     enabled: true,
-    output: "console",
+    output: ["console", "toast"],
     animation: "shake",
   },
   payloadModifier: (payload) => {

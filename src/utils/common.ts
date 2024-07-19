@@ -25,6 +25,7 @@ export function dispatchCustomEvent(
   event: TrackerListenerEvent | TrackerObserverEvent,
   eventTrackerContainer: HTMLElement
 ) {
+  console.log("dispatchCustomEvent", event);
   Logger.triggered(event.action, event.eventName, event.payload);
 
   const { action, eventName, payload } = event;

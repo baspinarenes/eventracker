@@ -6,7 +6,6 @@ import { PropertiesOnly } from "../models/type";
 
 export const EventTracker: FC<EventTrackerProps> = (props) => {
   const { children, action: actionProp, click, hover, seen, enabled = true } = props;
-
   const eventTrackerContainerRef = useRef<HTMLDivElement>(null);
 
   // Merge two different event props (actions or invidual).
@@ -17,6 +16,8 @@ export const EventTracker: FC<EventTrackerProps> = (props) => {
 
   // Subscribe all events to the container if it's enabled.
   useEffect(() => {
+    console.log("EventTracker eventTrackerContainerRef", eventTrackerContainerRef);
+    console.log("EventTracker action", action);
     if (!eventTrackerContainerRef.current) return;
 
     const unsubscribeAll = () => {
@@ -35,8 +36,11 @@ export const EventTracker: FC<EventTrackerProps> = (props) => {
     return () => unsubscribeAll();
   }, [enabled, eventTrackerContainerRef]);
 
+  console.log("EventTracker rendered");
+
   return (
     <div ref={eventTrackerContainerRef} data-testid="event-tracker-container">
+      <div>Test</div>
       {children}
     </div>
   );

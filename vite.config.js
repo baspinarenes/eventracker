@@ -9,6 +9,9 @@ import terser from "@rollup/plugin-terser";
 export default defineConfig({
   base: "./",
   plugins: [react(), external(), dts({ rollupTypes: true }), terser()],
+  esbuild: {
+    drop: ["console", "debugger"],
+  },
   build: {
     sourcemap: true,
     lib: {
@@ -19,6 +22,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ["react", "react-dom"],
+
       output: {
         globals: {
           react: "React",

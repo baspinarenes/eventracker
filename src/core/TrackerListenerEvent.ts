@@ -25,7 +25,6 @@ export class TrackerListenerEvent {
     eventTrackerContainer.addEventListener(nativeEventName, callback, {
       once: this.limit === 1,
     });
-    console.log("asdasdsad");
     globalThis.eventracker.saveEventToSummary(this.action, this.eventName, callback);
     Logger.registered(this.action, this.eventName);
   }

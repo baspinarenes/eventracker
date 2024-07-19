@@ -33,7 +33,6 @@ export function initializeEventTrackerForGlobal() {
         callback,
         triggered: 0,
       };
-      console.log("globalThis.eventracker.summary", globalThis.eventracker.summary);
     },
 
     removeEventFromSummary: (action: EventAction, eventName: string) => {

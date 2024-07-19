@@ -58,8 +58,6 @@ export function generateActionEventMap(
 
   const clickAction = givenClick ? new TrackerListenerEvent({ ...givenClick, action: "click" }) : undefined;
 
-  console.log("clickAction3", clickAction);
-
   const hoverAction = givenHover ? new TrackerListenerEvent({ ...givenHover, action: "hover" }) : undefined;
 
   const seenAction = givenSeen ? new TrackerObserverEvent({ ...givenSeen, action: "seen" }) : undefined;

@@ -34,8 +34,6 @@ export function createPayload(callback: CreatePayloadCallback): Record<string, a
 
       const value = cookies[key];
 
-      console.log("value", value, options);
-
       if (options?.json) return JSON.parse(value);
 
       return value;

@@ -28,7 +28,7 @@ export function useEventTracker(
     if (!eventTrackerContainerRef.current) return;
 
     eventTrackerContainerRef.current?.addEventListener("eventracker", subscribeEventTracker(actionEventMap, options));
-    Logger.subscribed(eventTrackerContainerRef.current.id);
+    eventTrackerContainerRef.current.id && Logger.subscribed(eventTrackerContainerRef.current.id);
 
     return () =>
       eventTrackerContainerRef.current?.removeEventListener(

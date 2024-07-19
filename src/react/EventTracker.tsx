@@ -16,8 +16,6 @@ export const EventTracker: FC<EventTrackerProps> = (props) => {
 
   // Subscribe all events to the container if it's enabled.
   useEffect(() => {
-    console.log("EventTracker eventTrackerContainerRef", eventTrackerContainerRef);
-    console.log("EventTracker action", action);
     if (!eventTrackerContainerRef.current) return;
 
     const unsubscribeAll = () => {
@@ -35,8 +33,6 @@ export const EventTracker: FC<EventTrackerProps> = (props) => {
     enabled ? subscribeAll() : unsubscribeAll();
     return () => unsubscribeAll();
   }, [enabled, eventTrackerContainerRef]);
-
-  console.log("EventTracker rendered");
 
   return (
     <div ref={eventTrackerContainerRef} data-testid="event-tracker-container">
